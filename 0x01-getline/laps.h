@@ -5,13 +5,14 @@
 #include <stdlib.h>
 
 /**
- * struct listint_s
- * @n: integer id
- * @laps: laps every race
+ * struct listint_s - singly linked list
+ * @n: integer ID
+ * @laps: laps
  * @next: points to the next node
  *
- * Description: linked list node structure
+ * Description: singly linked list node structure
  */
+
 typedef struct listint_s
 {
 	int n;
