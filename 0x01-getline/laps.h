@@ -1,0 +1,27 @@
+#ifndef LAPS_H
+#define LAPS_H
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+ * struct listint_s
+ * @n: integer id
+ * @laps: laps every race
+ * @next: points to the next node
+ *
+ * Description: linked list node structure
+ */
+typedef struct listint_s
+{
+	int n;
+	size_t laps;
+	struct listint_s *next;
+} listint_t;
+
+size_t print_listint(const listint_t *h);
+void free_listint(listint_t *head);
+void race_state(int *id, size_t size);
+listint_t *get_id(listint_t *head, int id);
+
+#endif /*LAPS_H */
