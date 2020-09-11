@@ -1,27 +1,56 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=gnu89 -g
 
-SRC = $(wildcard *.c)
-OBJS = $(patsubst %.c, %.o, $(SRC))
-LIBS = $(patsubst %.c, %.o, shared.c)
-0 = $(patsubst %.c, %.o, $(wildcard 0-*.c)) $(LIBS)
-1 = $(patsubst %.c, %.o, $(wildcard 1-*.c)) $(LIBS)
-2 = $(patsubst %.c, %.o, $(wildcard 2-*.c)) $(LIBS)
-100 = $(patsubst %.c, %.o, $(wildcard 100-*.c)) $(LIBS)
+SRC0 = 0-hreadelf.c utils.c endian.c print_header1.c print_header2.c print_header3.c print_header4.c elf1.c
+OBJ0 = $(SRC0:.c=.o)
+NAME0 = 0-hreadelf
 
-.PHONY: 0-hreadelf 1-hreadelf 2-hreadelf 100-hreadelf clean
+SRC1 = 1-hreadelf.c utils.c endian.c print_sections_1.c print_sections_2.c
+OBJ1 = $(SRC1:.c=.o)
+NAME1 = 1-hreadelf
 
-0-hreadelf: $(0)
-	$(CC) $(CFLAGS) $(0) -o 0-hreadelf
+SRC2 = 2-hreadelf.c utils.c endian.c endian2.c elf1.c print_programs1.c print_programs2.c print_sections_1.c print_sections_2.c
+OBJ2 = $(SRC2:.c=.o)
+NAME2 = 2-hreadelf
 
-1-hreadelf: $(1)
-	$(CC) $(CFLAGS) $(1) -o 1-hreadelf
+SRC100 = 100-hreadelf.c utils.c endian.c endian2.c elf1.c print_sections_1.c print_sections_2.c print_symbols1.c print_symbols2.c print_symbols3.c
+OBJ100 = $(SRC100:.c=.o)
+NAME100 = 100-hreadelf
 
-2-hreadelf: $(2)
-	$(CC) $(CFLAGS) $(2) -o 2-hreadelf
+.PHONY: all clean oclean flcean re
 
-100-hreadelf: $(100)
-	$(CC) $(CFLAGS) $(100) -o 100-hreadelf
-
+all: $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ0) -o $(NAME0)
+	$(CC) $(OBJ1) -o $(NAME1)
+	$(CC) $(OBJ2) -o $(NAME2)
+	$(CC) $(OBJ100) -o $(NAME100)
 clean:
-	rm -f $(OBJS) *-hreadelf
+	$(RM) *~ $(NAME)
+	$(RM) *~ $(NAME0)
+	$(RM) *~ $(NAME1)
+	$(RM) *~ $(NAME2)
+	$(RM) *~ $(NAME100)
+
+oclean:
+	$(RM) $(OBJ)
+	$(RM) $(OBJ0)
+	$(RM) $(OBJ1)
+	$(RM) $(OBJ2)
+	$(RM) $(OBJ100)
+
+fclean: clean oclean
+
+re: oclean all
+
+0-hreadelf: hreadelf.h $(OBJ0)
+	$(CC) $(OBJ0) -o $(NAME0)
+
+1-hreadelf: hreadelf.h $(OBJ1)
+	$(CC) $(OBJ1) -o $(NAME1)
+
+2-hreadelf: hreadelf.h $(OBJ2)
+	$(CC) $(OBJ2) -o $(NAME2)
+
+100-hreadelf: hreadelf.h $(OBJ100)
+	$(CC) $(OBJ100) -o $(NAME100)

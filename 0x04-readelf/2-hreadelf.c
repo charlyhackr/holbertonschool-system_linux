@@ -39,9 +39,13 @@ int main(int ac, char **argv)
 			}
 		}
 		switch_all_endian(&elf_header);
-		exit_status = print_header(&elf_header);
+		exit_status = print_program_headers_full(&elf_header, fd);
 	}
 
+	free(elf_header.s32);
+	free(elf_header.s64);
+	free(elf_header.p32);
+	free(elf_header.p64);
 	close(fd); /* if error? */
 	return (exit_status);
 }
