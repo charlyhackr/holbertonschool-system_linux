@@ -6,10 +6,10 @@
 #define PORT 12345
 
 /**
- * main - socket server
- * @ac: argument vector
- * @av: argument count
- * Return: SUCCESS or FAILURE
+ * main - socket servers
+ * @ac: argument vectors
+ * @av: argument counts
+ * Return: SUCCESS or FAILURES
  */
 int main(int ac, char **av)
 {
